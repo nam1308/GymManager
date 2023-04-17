@@ -78,6 +78,19 @@ Breadcrumbs::for('admin.password.index', function ($trail) {
     $trail->parent('admin.home');
     $trail->push('パスワード設定', route('admin.password.index'));
 });
+Breadcrumbs::for('admin.product.index', function ($trail) {
+    $trail->parent('admin.home');
+    $trail->push('プラン購入', route('admin.product.index'));
+});
+Breadcrumbs::for('admin.purchase.show', function ($trail, $product) {
+    $trail->parent('admin.home');
+    $trail->push('プラン購入', route('admin.purchase.show', $product['name']));
+});
+Breadcrumbs::for('admin.purchase.succeeded', function ($trail) {
+    $trail->parent('admin.home');
+    $trail->push('購入完了', route('admin.product.index'));
+});
+
 
 //////////////////////////////////////////
 // 店舗
@@ -220,10 +233,29 @@ Breadcrumbs::for('admin.business-hours.edit', function ($trail) {
 });
 //////////////////////////////////////////////////////////
 // 税率設定
+Breadcrumbs::for('admin.pay', function ($trail) {
+    $trail->parent('admin.home');
+    $trail->push('決済情報', route('admin.pay'));
+});
+
+Breadcrumbs::for('admin.pay.create', function ($trail) {
+    $trail->parent('admin.home');
+    $trail->push('決済情報', route('admin.pay'));
+    $trail->push('決済情報登録', route('admin.pay.create'));
+});
+
+Breadcrumbs::for('admin.pay.edit', function ($trail, $accountInfor) {
+    $trail->parent('admin.home');
+    $trail->push('決済情報', route('admin.pay'));
+    $trail->push($accountInfor['name'], route('admin.pay.edit', $accountInfor['pm_id']));
+});
+//////////////////////////////////////////////////
+// 課金情報
 Breadcrumbs::for('admin.tax-rate-setting', function ($trail) {
     $trail->parent('admin.home');
     $trail->push('税率設定', route('admin.tax-rate-setting'));
 });
+
 //////////////////////////////////////////////////
 // 管理画面
 ///////////////////////////////////////////////////
@@ -331,6 +363,11 @@ Breadcrumbs::for('super-admin.basic-setting.show', function ($trail, $basic_sett
 Breadcrumbs::for('super-admin.basic-setting', function ($trail) {
     $trail->parent('super-admin.home');
     $trail->push('基本設定', route('super-admin.basic-setting'));
+});
+
+Breadcrumbs::for('super-admin.basic-setting.index',function ($trail, $basic_setting){
+    $trail->parent('super-admin.basic-setting');
+    $trail->push($basic_setting->company_name);
 });
 
 //Breadcrumbs::for('super-admin.admin-user', function ($trail) {

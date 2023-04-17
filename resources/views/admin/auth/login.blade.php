@@ -4,6 +4,9 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
+        @if (session()->has('error_message'))
+            <div class="alert alert-danger" style="font-size: 16px">{{session()->get('error_message')}}</div>
+        @endif
         <div class="card">
           <div class="card-header">{{ __('トレーナーログイン') }}</div>
           <div class="card-body">

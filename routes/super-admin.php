@@ -6,6 +6,8 @@ use App\Http\Controllers\SuperAdmin\Auth\LoginController;
 use App\Http\Controllers\SuperAdmin\BasicSettingController;
 use App\Http\Controllers\SuperAdmin\HomeController;
 use App\Http\Controllers\SuperAdmin\LineApplyController;
+use App\Http\Controllers\SuperAdmin\ProductController;
+use App\Http\Controllers\SuperAdmin\PurchaseController;
 use App\Http\Controllers\SuperAdmin\ReservationController;
 use App\Http\Controllers\SuperAdmin\ShopController;
 use App\Http\Controllers\SuperAdmin\TrainerController;
@@ -24,6 +26,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::post('super-admin/product/store', [ProductController::class, 'store'])->name('super-admin.product.store');
 
 Route::group(['middleware' => 'auth.very_basic'], function () {
 
@@ -58,6 +62,10 @@ Route::group(['middleware' => 'auth.very_basic'], function () {
         Route::get('basic-setting/create', [BasicSettingController::class, 'create'])->name('super-admin.basic-setting.create');
         Route::get('basic-setting/{vendor_id}/show', [BasicSettingController::class, 'show'])->name('super-admin.basic-setting.show');
         Route::post('basic-setting/store', [BasicSettingController::class, 'store'])->name('super-admin.basic-setting.store');
+        Route::get('basic-setting/{vendor_id}/edit', [BasicSettingController::class, 'edit'])->name('super-admin.basic-setting.edit');
+        Route::put('basic-setting/{vendor_id}/update', [BasicSettingController::class, 'update'])->name('super-admin.basic-setting.update');
+        Route::put('basic-setting/{vendor_id}/updateBlock', [BasicSettingController::class, 'updateBlock'])->name('super-admin.basic-setting.updateBlock');
+
         ////////////////////////////////////
         // 店舗
         Route::group(['prefix' => 'shop'], function () {
@@ -73,6 +81,7 @@ Route::group(['middleware' => 'auth.very_basic'], function () {
         Route::put('trainer/{trainer_id}/update', [TrainerController::class, 'update'])->name('super-admin.trainer.update');
         Route::post('trainer/{trainer_id}/login', [TrainerController::class, 'login'])->name('super-admin.trainer.login');
         Route::post('trainer/{trainer_id}/destroy', [TrainerController::class, 'destroy'])->name('super-admin.trainer.destroy');
+
 
         ////////////////////////////////////
         // 会員
@@ -105,6 +114,10 @@ Route::group(['middleware' => 'auth.very_basic'], function () {
         Route::get('apply/{id}/edit', [ApplyController::class, 'edit'])->name('super-admin.apply.edit');
         Route::put('apply/{id}/update', [ApplyController::class, 'update'])->name('super-admin.apply.update');
         Route::delete('apply/{id}/delete', [ApplyController::class, 'destroy'])->name('super-admin.apply.destroy');
+
+        Route::group(['prefix' => 'purchase'], function () {
+            Route::get('/', [PurchaseController::class, 'index'])->name('super-admin.purchase');
+        });
         ////////////////
         ///
         /// 管理者管理

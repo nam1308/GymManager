@@ -24,15 +24,81 @@
             <td>〒{{$basic_setting->postal_code}} {{ $basic_setting->view_address}}</td>
           </tr>
           <tr>
+            <th>申込日</th>
+            <td>{{$basic_setting->created_at}}</td>
+          </tr>
+           <tr>
+            <th>初期費用</th>
+            <td>{{ $product->initial_price ?? '' }}</td>
+          </tr>
+           <tr>
+            <th>無料期間</th>
+            <td>{{ $product->free_term ?? ''}}</td>
+          </tr>
+           <tr>
+            <th>直近の支払い日</th>
+            <td>
+                @php
+                    if ($product && $product->created_at){
+                        $trialTime = $product->created_at->addDay($product->free_term + 1)->startOfDay();
+                        $isPast = $trialTime->isPast();
+                        if ($isPast){
+                            echo $product->reference_date->addMonth()->addDay()->startOfDay() ?? '';
+                        }
+                        else{
+                            echo $trialTime;
+                        }
+                    }
+                @endphp
+            </td>
+          </tr>
+           <tr>
+            <th>料金プラン</th>
+            <td>
+                {{$product->productCategory->type ?? '' }}
+            </td>
+          </tr>
+           <tr>
+            <th>金額</th>
+            <td>
+                {{$product->productCategory->price ?? ''}}
+            </td>
+          </tr>
+           <tr>
+            <th>メールアドレス</th>
+            <td>
+                {{$admin->email ?? ''}}
+            </td>
+          </tr>
+          <tr>
+            <th>備考</th>
+            <td>
+                {{$basic_setting->note_super_admin ?? ''}}
+            </td>
+          </tr>
+          <tr>
+            <th>ブロック</th>
+            <td>
+                <label for="btn-block">
+                    <input type="checkbox" id="btn-block" class="check-box-btn" @if ($basic_setting->admin->block)
+                        {{'checked'}}
+                    @endif>
+                    <div class="btn-wrap">
+                        <div class="btn-switch"></div>
+                    </div>
+                </label>
+            </td>
+          </tr>
+          <tr>
             <th>登録日</th>
-            <td>{{ $basic_setting->created_at }}</td>
+            <td>{{ $basic_setting->admin->lineMessage->created_at ?? '' }}</td>
           </tr>
           <tr>
             <th>更新日</th>
-            <td>{{ $basic_setting->updated_at }}</td>
+            <td>{{ $basic_setting->admin->lineMessage->updated_at ?? ''}}</td>
           </tr>
           <tr>
-            <th colspan="2"><a href="">編集</a></th>
+            <th colspan="2"><a id="btn-edit" href="{{route('super-admin.basic-setting.edit',['vendor_id'=>$basic_setting->vendor_id])}}">編集</a></th>
           </tr>
           </tbody>
         </table>
@@ -199,3 +265,74 @@
     </div>
   </div>
 @endsection
+
+
+@push('css')
+    <style>
+        :root{
+            --bg-active: #3cff3c;
+            --bg-normal: #99a099;
+        }
+        .btn-wrap{
+            width: 60px;
+            height: 30px;
+            border: none;
+            border-radius: 20px;
+            background-color: var(--bg-normal);
+            display: flex;
+            align-items: center;
+            padding: 2px 5px;
+            cursor: pointer;
+            transform: translateX(0);
+            transition: all 0.2s ease;
+        }
+
+        .btn-switch{
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .check-box-btn{
+            display: none;
+        }
+
+        .check-box-btn:checked + .btn-wrap{
+            background-color: var(--bg-active);
+        }
+
+        .check-box-btn:checked + .btn-wrap .btn-switch{
+            transform: translateX(30px);
+        }
+    </style>
+@endpush
+
+@push('scripts')
+    <script>
+       window.onload = function () {
+            $('#btn-block').on('change',function (e) {
+                const oldValue = e.target.checked
+                console.log(oldValue);
+                if(window.confirm(!oldValue ? 'この会社のブロックを解除しますか' : 'この会社をブロックしますか')){
+                    e.target.checked = oldValue
+                    $.ajax({
+                        url: "{{route('super-admin.basic-setting.updateBlock',['vendor_id'=>$basic_setting->vendor_id])}}",
+                        method: 'put',
+                        data: {
+                            _token: "{{csrf_token()}}",
+                            block: oldValue ? 1 : 0
+                        },
+                        success: function (res) {
+                            console.log(res);
+                        }
+                    })
+                }
+                else{
+                    e.target.checked = !oldValue;
+                }
+            })
+       }
+    </script>
+@endpush

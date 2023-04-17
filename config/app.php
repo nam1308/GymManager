@@ -21,6 +21,10 @@ return [
     // メールform
     'mail_to' => env('MAIL_TO', 'tms_admin@example.com'),
 
+    'stripe' => [
+        'pb_key' => env('STRIPE_KEY'),
+        'st_key' => env('STRIPE_SECRET'),
+    ],
     /*
     |--------------------------------------------------------------------------
     | Application Environment

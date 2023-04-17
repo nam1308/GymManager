@@ -14,14 +14,14 @@
 
   </script>
   <div class="container-fluid">
-    {{ Breadcrumbs::render('super-admin.basic-setting.index') }}
+    {{ Breadcrumbs::render('super-admin.basic-setting.index',$data) }}
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="col">
           <div class="card">
             <div class="card-header"> {{ __('基本設定') }} </div>
             <div class="card-body">
-              {{ Form::open(['url' => route('super-admin.basic-setting.update'), 'class' => 'h-adr']) }}
+              {{ Form::open(['url' => route('super-admin.basic-setting.update',['vendor_id'=>$data->vendor_id]), 'class' => 'h-adr']) }}
               @method('PUT')
               <span class="p-country-name" style="display:none;">Japan</span>
               <div class="form-group">
@@ -36,7 +36,7 @@
                                     </span>
                 @enderror
               </div>
-              <div class="form-group">
+              {{-- <div class="form-group">
                 <label for="">会社名（カナ） <span class="badge badge-danger">必須</span></label>
                 <input placeholder=""
                        class="form-control form-control-lg @error('company_name_kana') is-invalid @enderror"
@@ -47,8 +47,8 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                 @enderror
-              </div>
-              <div class="form-group">
+              </div> --}}
+              {{-- <div class="form-group">
                 <label for="">店名</label>
                 <input placeholder=""
                        class="form-control form-control-lg @error('store_name') is-invalid @enderror"
@@ -59,8 +59,8 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                 @enderror
-              </div>
-              <div class="form-group">
+              </div> --}}
+              {{-- <div class="form-group">
                 <label for="">店名(カナ)</label>
                 <input placeholder=""
                        class="form-control form-control-lg @error('store_name_kana') is-invalid @enderror"
@@ -71,8 +71,8 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                 @enderror
-              </div>
-              <div class="form-group">
+              </div> --}}
+              {{-- <div class="form-group">
                 <label for="">店名(英語表記)</label>
                 <input placeholder=""
                        class="form-control form-control-lg @error('store_name_en') is-invalid @enderror"
@@ -83,7 +83,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                 @enderror
-              </div>
+              </div> --}}
               <div class="form-group">
                 <label for="">郵便番号 <span class="badge badge-danger">必須</span></label>〒 ※ハイフンなし
                 <input placeholder="1234568"
@@ -143,14 +143,14 @@
                 <input placeholder="例）03-1234-5678" id="phone_number"
                        class="form-control form-control-lg @error('phone_number') is-invalid @enderror"
                        name="phone_number"
-                       value="{{ old('phone_number', optional($data)->view_phone_number) }}">
+                       value="{{ old('phone_number', optional($data)->phone_number) }}">
                 @error('phone_number')
                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                 @enderror
               </div>
-              <div class="form-group">
+              {{-- <div class="form-group">
                 <label for="">店舗営業時間</label>
                 <input placeholder="" class="form-control form-control-lg" name="business_hours" type="text"
                        value="{{ old('business_hours', optional($data)->business_hours) }}">
@@ -159,7 +159,30 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                 @enderror
+              </div> --}}
+              <div class="form-group">
+                <label for="note_super_admin">備考</label>
+                <textarea id="note_super_admin" name="note_super_admin" class="form-control form-control-lg" rows="5">{{ old('note_super_admin', optional($data)->note_super_admin) }}</textarea>
+                @error('note_super_admin')
+                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                @enderror
               </div>
+              <div class="mb-2">ブロック</div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="blockRadioYes" name="block" value="1" class="custom-control-input" @if ($isBlock)
+                    checked
+                @endif>
+                <label class="custom-control-label" for="blockRadioYes">ON</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="blockRadioNo" name="block" value="0" class="custom-control-input" @if (!$isBlock)
+                    checked
+                @endif>
+                <label class="custom-control-label" for="blockRadioNo">OFF</label>
+              </div>
+              <div class="mb-3"></div>
               <!-- 送信ボタン -->
               {{ Form::submit('保存する', ['class' => 'btn btn-primary btn-lg']) }}
               {{ form::close() }}

@@ -15,8 +15,11 @@ class CreateProductCategoriesTable extends Migration
     {
         Schema::create('product_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('vendor_id')->comment('業者ID')->index();
-            $table->string('name')->comment('カテゴリー名');
+            $table->string('name')->nullable();
+            $table->string('price')->comment('プランの料金');
+            $table->integer('trainer_count')->nullable()->comment('トレーナーの最大数');
+            $table->string('type')->nullable();
+            $table->string('key')->nullable()->comment('ストライプの price_key を保存');
             $table->timestamps();
         });
     }

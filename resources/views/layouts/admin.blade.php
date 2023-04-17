@@ -25,7 +25,7 @@
 <body style="background: #fff">
 <div id="app">
   <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-    <div class="container">
+    <div class="container-fluid">
       <a class="navbar-brand" href="{{ url('/admin') }}"> {{ config('app.name', 'Laravel') }} </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -49,9 +49,11 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ route('admin.trainer') }}">トレーナ一覧</a>
                 {{-- <a class="dropdown-item" href="{{ route('admin.trainer.create') }}">トレーナー登録</a> --}}
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ route('admin.invitation.create') }}">招待</a>
-                <a class="dropdown-item" href="{{ route('admin.invitation') }}">招待一覧</a>
+                @can('admin')
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{{ route('admin.invitation.create') }}">招待</a>
+                  <a class="dropdown-item" href="{{ route('admin.invitation') }}">招待一覧</a>
+                @endcan
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -126,6 +128,8 @@
                 {{ Auth::user()->name }}<span class="caret"></span> </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ route('admin.profile.edit') }}">プロフィール編集</a>
+                <a class="dropdown-item" href="{{ route('admin.product.index') }}">プラン購入</a>
+                <a class="dropdown-item" href="{{ route('admin.pay') }}">課金情報</a>
                 <a class="dropdown-item" href="{{ route('admin.password.change') }}">パスワード変更</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('admin.logout') }}"
@@ -168,6 +172,7 @@
   @endif
   @yield('content')
 </div>
+@yield('modal')
 <script src="{{ asset('/js/common.js') }}" charset="utf-8"></script>
 <script src="{{ asset('/js/format_phone_number.js') }}" charset="utf-8"></script>
 @stack('javascript-footer')

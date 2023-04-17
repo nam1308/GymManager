@@ -62,44 +62,45 @@
         </tbody>
       </table>
       <br>
-      <!-- Button trigger modal -->
-      @if($admin->role == 10)
-        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#exampleModalCenter" @if($trainer->role == 10)disabled @endif>
-          {{$trainer->name}}さんを停止する
-        </button>
-      @endif
-  </div>
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalCenterTitle">停止確認</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <strong>{{ $trainer->name }}さんを停止しますか？</strong>
-          <br>
-          ※復活はいつでもできます。
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary btn-lg" data-dismiss="modal">キャンセル</button>
-          {!! Form::open(['route' => ['admin.trainer.delete', $trainer->id], 'method' => 'delete']) !!}
-          {!! Form::submit('停止する', ['class' => 'btn btn-danger btn-lg']) !!}
-          {!! Form::close() !!}
-        </div>
-      </div>
-    </div>
-    <div class="col-8">
-      予定表
-    </div>
-    @else
-      <div class="alert alert-warning" role="alert">
-        トレーナーが見つかりません
-      </div>
+      {{--      <!-- Button trigger modal -->--}}
+      {{--      @if($admin->role == 10)--}}
+      {{--        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#exampleModalCenter" @if($trainer->role == 10)disabled @endif>--}}
+      {{--          {{$trainer->name}}さんを停止する--}}
+      {{--        </button>--}}
+      {{--      @endif--}}
     @endif
   </div>
+  {{--  <!-- Modal -->--}}
+  {{--  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"--}}
+  {{--       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">--}}
+  {{--    <div class="modal-dialog modal-dialog-centered" role="document">--}}
+  {{--      <div class="modal-content">--}}
+  {{--        <div class="modal-header">--}}
+  {{--          <h5 class="modal-title" id="exampleModalCenterTitle">停止確認</h5>--}}
+  {{--          <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+  {{--            <span aria-hidden="true">&times;</span>--}}
+  {{--          </button>--}}
+  {{--        </div>--}}
+  {{--        <div class="modal-body">--}}
+  {{--          <strong>{{ $trainer->name }}さんを停止しますか？</strong>--}}
+  {{--          <br>--}}
+  {{--          ※復活はいつでもできます。--}}
+  {{--        </div>--}}
+  {{--        <div class="modal-footer">--}}
+  {{--          <button type="button" class="btn btn-outline-secondary btn-lg" data-dismiss="modal">キャンセル</button>--}}
+  {{--          {!! Form::open(['route' => ['admin.trainer.delete', $trainer->id], 'method' => 'delete']) !!}--}}
+  {{--          {!! Form::submit('停止する', ['class' => 'btn btn-danger btn-lg']) !!}--}}
+  {{--          {!! Form::close() !!}--}}
+  {{--        </div>--}}
+  {{--      </div>--}}
+  {{--    </div>--}}
+  {{--    <div class="col-8">--}}
+  {{--      予定表--}}
+  {{--    </div>--}}
+  {{--    @else--}}
+  {{--      <div class="alert alert-warning" role="alert">--}}
+  {{--        トレーナーが見つかりません--}}
+  {{--      </div>--}}
+  {{--    @endif--}}
+  {{--  </div>--}}
 @endsection

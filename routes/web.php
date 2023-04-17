@@ -8,6 +8,7 @@ use App\Http\Controllers\HelpController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\SuperAdmin\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\VendorTrainerReservationController;
@@ -30,7 +31,7 @@ Route::group(['middleware' => 'auth.very_basic'], function () {
 
     Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
-//    Route::get('/{callback_id}', [WelcomeController::class, 'show']);
+    //    Route::get('/{callback_id}', [WelcomeController::class, 'show']);
     ///////////////////////
     // ログイン
     Route::get('/login/line', [LineLoginController::class, 'index'])->name('login.line');

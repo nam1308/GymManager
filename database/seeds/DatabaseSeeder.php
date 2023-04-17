@@ -1,5 +1,6 @@
 <?php
 
+use Database\Seeders\ProductCategoriesSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
                 //UserTableSeeder::class,
                 //BasicSettingSeeder::class,
                 SuperAdminTableSeeder::class,
+                ProductCategoriesSeeder::class,
             ]
         );
     }

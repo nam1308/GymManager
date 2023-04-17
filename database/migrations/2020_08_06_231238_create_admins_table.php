@@ -22,6 +22,7 @@ class CreateAdminsTable extends Migration
             $table->string('password')->comment('パスワード');
             $table->tinyInteger('role')->default(0)->index('index_role')->comment('ロール');
             $table->tinyInteger('trainer_role')->nullable()->comment('トレーナー');
+            $table->boolean('block')->default(false);
             $table->text('self_introduction')->comment('自己紹介')->nullable()->default(null);
             $table->timestamps();
             $table->softDeletes();

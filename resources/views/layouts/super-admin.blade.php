@@ -29,6 +29,13 @@
           @auth
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">売上管理</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{route('super-admin.purchase')}}">売上一覧</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">申込管理</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{route('super-admin.apply')}}">申込一覧</a>
@@ -148,6 +155,7 @@
 </div>
 <script src="{{ asset('/js/common.js') }}" charset="utf-8"></script>
 <script src="{{ asset('/js/format_phone_number.js') }}" charset="utf-8"></script>
+@stack('scripts')
 </body>
 
 </html>

@@ -25,6 +25,7 @@ class CreateBasicSettingsTable extends Migration
             $table->string('address_building_name', 255)->nullable(true)->comment('番地・ビル名');
             $table->string('phone_number')->comment('電話番号');
             $table->text('other_memo')->comment('その他のメモ')->nullable();
+            $table->text('note_super_admin')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

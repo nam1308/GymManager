@@ -45,7 +45,10 @@
                 <td>
                   <form method="POST" action="{{ route('admin.invitation.retransmission') }}">
                     @csrf
-                    <button type="submit" class="btn btn-primary">再送信</button>
+                    <button
+                        type="submit"
+                        class="btn btn-primary" onclick="return confirm('再送信しますか？')">再送信
+                    </button>
                     <input type="hidden" name="invitation_id" value="{{$invitation->id}}">
                   </form>
                 </td>

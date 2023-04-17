@@ -18,7 +18,8 @@ class CreateSuperAdminsTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->tinyInteger('role')->default(0)->index('index_role')->comment('ロール');
+            $table->tinyInteger('role')->default(0)->index('index_role_super')->comment('ロール');
+//            $table->tinyInteger('role')->default(0)->comment('ロール');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
